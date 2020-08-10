@@ -1,9 +1,16 @@
 const express = require('express')
+const path = require('path')
+const gameRoutes = require('./routes/game')
+const bodyParser = require('body-parser')
 
 const app = express()
 
-app.get('/', (req, res) => {
-    res.send('<h1>Express quiz game</h1>')
-})
+app.use(express.static(path.join(__dirname, 'public')))
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 
-app.listen(3000, () => console.log('Server lostening on port 3000'));
+gameRoutes(app)
+
+app.listen(3000, () => console.log('Server listening on port 3000'));

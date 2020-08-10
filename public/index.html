@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Quiz Game | Express</title>
+</head>
+
+<body>
+    <h1>Quiz Game App - Coders</h1>
+    <h2></h2>
+
+    <div id="game-board">
+
+        <h2>Correct answers: <span id="correct-answers"></span></h2>
+
+        <div id="tip">Podpowiedź: <span class="tip"></span>
+        </div>
+        <button class="lifebuoys" id="callToFriend">Telefon do Przyjaciela</button>
+        <button class="lifebuoys" id="questionToTheCrowd">Pytanie do Publiczności</button>
+        <button class="lifebuoys" id="halfOnHalf">Pół na pół</button>
+
+
+        <div id="question"></div>
+        <button id="answer1" class="q-btn" data-answer="0"></button>
+        <button id="answer2" class="q-btn" data-answer="1"></button>
+        <button id="answer3" class="q-btn" data-answer="2"></button>
+        <button id="answer4" class="q-btn" data-answer="3"></button>
+    </div>
+    <!-- <script src="script.js"></script> -->
+    <script src="lifebuoys.js"></script>
+    <script src="game.js"></script>
+    <script src="interface.js"></script>
+    <script type="module" src="main.js"></script>
+</body>
+
+</html>
