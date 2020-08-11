@@ -1,13 +1,6 @@
+const stats = require('../data/statistics')
+
 function gameRoutes(app) {
-    // TODO: dodać route resetujący grę - przycisk "spróbuj ponownie" w wyświetlaniu przegrałeś
-
-    // statystyki gry
-    let correctAnswers = 0;
-    let gameOver = false;
-    let callAFriendUsed = false;
-    let questionToTheCrowdUsed = false;
-    let halfOnHalf = false;
-
     // zestaw pytań - json
     const questions = [
         {
@@ -29,12 +22,12 @@ function gameRoutes(app) {
 
     app.get('/question', (req, res) => {
 
-        if (correctAnswers === questions.length) {
+        if (stats.correctAnswers === questions.length) {
             res.json({ winner: true })
-        } else if (gameOver) {
+        } else if (stats.gameOver) {
             res.json({ looser: true });
         } else {
-            const nextQuestion = questions[correctAnswers];
+            const nextQuestion = questions[stats.correctAnswers];
 
             const { question, answers } = nextQuestion; // to hide the correct answer from the frontend
 
@@ -44,36 +37,32 @@ function gameRoutes(app) {
 
     app.post('/answer', (req, res) => {
 
-        if (gameOver) {
+        if (stats.gameOver) {
             res.json({ looser: true });
         }
 
         const answer = req.body.answer;
-        console.log('Answer No', answer)
-        const question = questions[correctAnswers];
+        const question = questions[stats.correctAnswers];
         const isAnswerCorrect = question.correctAnswer == answer
-        console.log('Is answer correct?', isAnswerCorrect)
-
-
 
         if (isAnswerCorrect) {
-            correctAnswers++;
+            stats.correctAnswers++;
         } else {
-            gameOver = true;
+            stats.gameOver = true;
         }
 
-        res.json({ correct: isAnswerCorrect, correctAnswers });
+        res.json({ correct: isAnswerCorrect, correctAnswers: stats.correctAnswers });
     })
 
     app.get('/help/friend', (req, res) => {
-        if (callAFriendUsed) {
+        if (stats.callAFriendUsed) {
             return res.json({
                 text: 'To koło ratunkowe było już wykorzystane'
             });
         };
         const doesFriendKnow = (Math.random() < 0.5);
-        const question = questions[correctAnswers];
-        callAFriendUsed = true;
+        const question = questions[stats.correctAnswers];
+        stats.callAFriendUsed = true;
 
         res.json({
             text: doesFriendKnow ? `Hmmm, wydaje mi się, że odpowiedź to ${question.answers[question.correctAnswer]}` : 'Hmm, no nie wiem',
@@ -81,15 +70,15 @@ function gameRoutes(app) {
     });
 
     app.get('/help/half', (req, res) => {
-        if (halfOnHalf) {
+        if (stats.halfOnHalf) {
             return res.json({
                 eliminate: 'To koło ratunkowe było już wykorzystane'
             });
         };
 
-        halfOnHalf = true;
+        stats.halfOnHalf = true;
 
-        const question = questions[correctAnswers]
+        const question = questions[stats.correctAnswers]
         const wrongAnswers = [];
         for (i = 0; i < question.answers.length; i++) {
             if (i !== question.correctAnswer) {
@@ -103,13 +92,13 @@ function gameRoutes(app) {
     app.get('/help/crowd', (req, res) => {
         const chart = [10, 20, 30, 40];
 
-        if (questionToTheCrowdUsed) {
+        if (stats.questionToTheCrowdUsed) {
             return res.json({
                 chart: 'To koło ratunkowe było już wykorzystane'
             });
         };
 
-        questionToTheCrowdUsed = true;
+        stats.questionToTheCrowdUsed = true;
 
         for (i = chart.length - 1; i > 0; i--) {
             const change = Math.floor(Math.random() * 20 - 10);
@@ -117,12 +106,17 @@ function gameRoutes(app) {
             chart[i - 1] -= change;
         }
 
-        const question = questions[correctAnswers];
+        const question = questions[stats.correctAnswers];
         const { correctAnswer } = question;
 
         [chart[3], chart[correctAnswer]] = [chart[correctAnswer], chart[3]]
         res.json({ chart })
     });
+
+    app.get('/restart', (req, res) => {
+        stats.resetStats();
+        console.log('values zeroed')
+    })
 };
 
 module.exports = gameRoutes;

@@ -37,6 +37,14 @@ class Game {
         this.correctAnswers = data.correctAnswers;
         this.fetchNewQuestion(data)
     };
+    resetValues() {
+        this.correctAnswers = 0;
+        this.winner = false;
+        this.looser = false;
+        this.questionData = [];
+        fetch('/restart', { method: 'GET' })
+        this.fetchNewQuestion() // TO DO: opóźnić i dodać preloader
+    }
 };
 
 const game = new Game(10)

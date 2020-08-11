@@ -14,6 +14,8 @@ class Interface {
         this.questionField = document.querySelector('div#question')
         this.lifebuoys = document.querySelectorAll('.lifebuoys');
         this.answerBtns = document.querySelectorAll('.q-btn');
+        this.endScreens = document.querySelectorAll('.end-screen')
+        this.endBtns = document.querySelectorAll('.end-btn');
 
         // event listeners
         this.answerBtns.forEach((button) => {
@@ -35,14 +37,42 @@ class Interface {
                     break;
             };
         });
+        this.endBtns.forEach((btn, btnIndex) => {
+            if (btnIndex === 0) {
+                btn.addEventListener('click', () => {
+                    this.clearScreen();
+                    game.resetValues();
+                    alert('This feature will be added soon')
+                })
+            } else {
+                btn.addEventListener('click', () => {
+                    this.clearScreen();
+                    game.resetValues();
+                    this.handleEndScreens('hide', 'looser-screen');
+                });
+            }
+        })
     };
+    handleEndScreens(action, screenId) {
+        this.endScreens.forEach(screen => {
+            if (screen.id === screenId && action === 'show') {
+                screen.style.visibility = 'visible'
+            } else if (screen.id === screenId && action === 'hide') {
+                screen.style.visibility = 'hidden'
+            }
+        })
+    }
+    clearScreen() {
+        this.hint.textContent = '';
+        this.lifebuoys.forEach(buoy => buoy.disabled = false)
+    }
     playerWin() {
-        this.gameBoard.style.display = 'none';
-        this.title.textContent = 'Wygrałeś / aś!'
+        game.playerWin = true;
+        this.handleEndScreens('show', 'winner-screen');
     }
     playerLoose() {
-        this.gameBoard.style.display = 'none';
-        this.title.textContent = 'Przegrałeś / aś!'
+        game.playerLoose = true;
+        this.handleEndScreens('show', 'looser-screen');
     }
     fillQuestionElements(data) {
 
@@ -53,7 +83,7 @@ class Interface {
         });
     };
     showAnswerFeedback() {
-        this.correctAnswers = game.correctAnswers;
+        this.correctAnswers.textContent = game.correctAnswers;
     };
     checkLifebuoysUsed() {
         this.lifebuoys.forEach((buoy, index) => {
@@ -75,6 +105,7 @@ class Interface {
             this.checkLifebuoysUsed()
             this.fillQuestionElements(data);
             this.showAnswerFeedback(data)
+            this.hint.textContent = '';
         }
     }
 }
