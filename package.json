@@ -4,7 +4,8 @@
   "description": "My first express game project",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "xdg-open http://localhost:3000 && nodemon app.js "
   },
   "repository": {
     "type": "git",
@@ -14,6 +15,8 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
-    "express": "^4.17.1"
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "mongoose": "^5.10.0"
   }
 }

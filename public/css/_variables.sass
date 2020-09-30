@@ -1,0 +1,24 @@
+$font-regular: 'Open Sans', sans-serif
+$font-title: 'Proza Libre', sans-serif
+
+$color-green: rgb(76, 154, 42)
+$color-green-opaque: rgba(76, 154, 42, .3)
+$color-red-opaque: rgba(255, 0, 0, .3)
+$color-white-opaque: rgba(255, 255, 255, .3)
+$color-shadow-bright: #eee
+$color-shadow-dark: #333
+
+$margin-panel: 50px
+$margin-panel-mobile: 50px
+
+@mixin tablet
+  @media (max-width: 920px)
+    @content
+
+@mixin mobile
+  @media (max-width: 500px)
+    @content
+
+@mixin mobile-small
+  @media (max-width: 360px)
+    @content

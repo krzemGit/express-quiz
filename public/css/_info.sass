@@ -1,0 +1,173 @@
+// local variables for responsive design
+$display-width: 500px
+$mobile-width: 300px
+
+.rules__display, .technologies__display
+  position: absolute
+  left: -$display-width
+  top: 0
+  bottom: 0
+  width: $display-width
+
+  border-right: 4px solid black
+  background-color: #fff
+
+  transition: all 1s
+
+  padding: 20px
+
+  @include mobile
+    width: $mobile-width
+    left: -$mobile-width
+
+  &.open
+    left: 0
+
+.rules
+
+  &__display
+    border-color: $color-green
+    height: 100%
+
+  &__header
+    color: $color-green
+    max-height: 100px
+    text-align: center
+
+  &__list
+    list-style-type: upper-roman
+    padding-top: 100px
+    padding-left: 20px
+    height: 80%
+
+    display: flex
+    flex-direction: column
+    justify-content: space-around
+
+  &__list-item
+    padding-bottom: 5px
+
+.technologies
+
+  &__display
+    border-color: red
+
+    @include mobile
+      z-index: 5
+
+  &__title
+    color: red
+    text-align: center
+
+  &__card
+    padding: 20px
+    border-bottom: 1px solid grey
+    display: flex
+
+    &:first-child
+      border-top: 1px solid grey
+
+    &:nth-child(2n)
+      flex-direction: row-reverse
+
+  &__logo
+    padding-right: 20px
+    font-size: 100px
+    color: $color-red-opaque
+
+    @include mobile
+      font-size: 60px
+
+    &--js
+      padding-right: 0
+      padding-left: 20px
+
+    &--node
+
+    &--mongo
+      padding-right: 0
+      padding-left: 20px
+
+    &--sass
+      padding-top: 15px
+
+  &__name
+    padding-top: 30px
+
+    @include mobile
+      padding-top: 5px
+      font-size: 1rem
+
+  &__text
+    padding-top: 10px
+
+    @include mobile
+      padding-top: 5px
+      font-size: .7rem
+
+.rules
+  &__btn
+    position: absolute
+    width: 70px
+    height: 70px
+    top: 20px
+    right: 20px
+
+    border-radius: 50%
+    background-color: $color-green
+    color: white
+    opacity: .3
+
+    line-height: 70px
+    text-align: center
+    font-size: 40px
+    font-weight: bold
+
+    cursor: help
+    transition: opacity .3s
+
+    &:hover
+      opacity: 1
+
+    @include tablet
+      left: 20px
+      right: auto
+
+    @include mobile
+      font-size: 30px
+      height: 50px
+      width: 50px
+      line-height: 50px
+
+.technologies
+  &__btn
+    position: absolute
+    width: 70px
+    height: 70px
+    bottom: 20px
+    right: 20px
+
+    border-radius: 50%
+    background-color: red
+    color: white
+    opacity: .3
+
+    line-height: 70px
+    text-align: center
+    font-size: 30px
+
+    cursor: help
+    transition: opacity .3s
+
+    &:hover
+      opacity: 1
+
+    @include tablet
+      top: 20px
+      bottom: auto
+
+    @include mobile
+      font-size: 20px
+      height: 50px
+      width: 50px
+      line-height: 50px

@@ -1,0 +1,33 @@
+<form action="" class="add-form" onsubmit="addForm.sendQuestion(event)">
+  <i class="far fa-question-circle"></i>
+  <p class="add-form__question">
+    <label for=" question"><span>Wpisz pytanie</span></label>
+    <input type="text" name="question" onblur="addForm.checkFocusClass(event)" onfocus="addForm.addFocusClass(event)">
+  </p>
+  <p class=" add-form__answer add-form__answer--1">
+    <label for="answer-one">Odpowiedź 1:</label>
+    <input type="text" name="answer-one">
+  </p>
+  <p class="add-form__answer add-form__answer--2">
+    <label for="answer-two">Odpowiedź 2:</label>
+    <input type="text" name="answer-two">
+  </p>
+  <p class="add-form__answer add-form__answer--3">
+    <label for="answer-three">Odpowiedź 3:</label>
+    <input type="text" name="answer-three">
+  </p>
+  <p class="add-form__answer add-form__answer--4">
+    <label for="answer-four">Odpowiedź 4:</label>
+    <input type="text" name="answer-four">
+  </p>
+  <p class="add-form__correct-answer">
+    <select name="correct-answer" id="" class="correct-answer">
+      <option value="" disabled selected>Która odpowiedź jest poprawna?</option>
+      <option value="0">1</option>
+      <option value="1">2</option>
+      <option value="2">3</option>
+      <option value="3">4</option>
+    </select>
+  <p class="add-form__submit-wrapper"><input type="submit" value="Dodaj pytanie" class="add-form__submit-btn"></p>
+  <p class="add-form__message" id="add-form-message"></p>
+</form>

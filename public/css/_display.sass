@@ -1,0 +1,192 @@
+// variables and animations specific to this section
+$questions-height: 100px
+$question-font-height: 30px
+
+@keyframes load-dots
+  0%
+    opacity: .2
+
+  25%
+    opacity: .6
+
+  50%
+    opacity: 1
+
+  75%
+    opacity: .6
+
+  100%
+    opacity: .2
+
+@keyframes disappear
+  0%
+    opacity: 1
+  100%
+    opacity: 0
+
+@keyframes slide-up
+  0%
+    height: 0
+
+  100%
+    height: $questions-height
+
+// component styling
+
+.display-panel
+  position: relative
+  flex-basis: 70%
+
+  display: flex
+  flex-direction: column
+  justify-content: space-between
+
+  padding: 0 100px 0 40px
+
+  @include tablet
+    min-height: 40vh
+    padding: 0 100px
+
+  @include mobile
+    padding: 0
+
+  &__tip
+    background-color: $color-green-opaque
+    border: 2px solid $color-green
+    border-radius: 20px
+
+    color: $color-green
+    padding: 0
+    visibility: hidden
+    opacity: 1
+
+    &.red
+      background-color: rgba(255, 0, 0, .3)
+      border: 2px solid #ff0000
+      color: #ff0000
+
+    &.visible
+      visibility: visible
+      padding: 20px 40px
+      animation: disappear 3s 2s
+
+    @include mobile
+      margin-top: 70px
+
+  &__question
+
+  &__question-display
+    position: relative
+    overflow-y: auto
+    font-size: $question-font-height
+    height: 200px
+    box-shadow: inset 0 40px 40px #fff, inset 0 -10px 10px #fff
+
+    padding-left: 20px
+
+    display: flex
+    flex-direction: column
+    justify-content: flex-end
+
+    // scroll
+    &::-webkit-scrollbar
+      width: 10px
+
+    &::-webkit-scrollbar-track
+      box-shadow: inset 0 0 5px grey
+      border-radius: 10px
+
+    &::-webkit-scrollbar-thumb
+      background-color: rgba(136, 136, 136, .7)
+      border-radius: 10px
+
+      &:hover
+        background-color: rgba(0,0,0, .7)
+
+    @include mobile
+      font-size: 25px
+      height: 150px
+
+  &__next-question
+    margin-bottom: 20px
+
+    height: $questions-height
+    line-height: $question-font-height + 10px
+    animation: slide-up 1s linear
+
+    z-index: -1
+
+  &__feedback
+    height: $questions-height
+    font-family: $font-title
+    font-size: 25px
+    padding-left: 10px
+    color: $color-green
+    line-height: 40px
+    margin-bottom: 20px
+    animation: slide-up 1s linear
+    z-index: -1
+
+    &.incorrect
+      color: #f00
+
+  &__loader
+    opacity: 1
+    transition: opacity .25s
+    display: flex
+
+    &.hidden
+      opacity: 0
+
+  &__loader-dot
+    border-radius: 50%
+    background-color: #000
+    height: 10px
+    width: 10px
+    margin: 15px
+    animation: load-dots 2s linear infinite
+
+    &:nth-child(2)
+      animation-delay: .5s
+
+    &:nth-child(3)
+      animation-delay: 1s
+
+    @include mobile
+      font-size: 60px
+
+  &__additional
+    bottom: 0
+    left: 10px
+    right: 0
+    z-index: 5
+
+    border-radius: 20px
+    border: 4px solid $color-green
+    background-color: #fff
+
+    transition: height 1s
+    height: 0
+    opacity: 0
+    visibility: hidden
+    overflow: hidden
+
+    display: flex
+    justify-content: center
+    align-items: center
+
+    &.full-size
+      height: 100%
+      opacity: 1
+      position: absolute
+      visibility: visible
+
+      @include tablet
+        left: 0
+        top: 20px
+        bottom: 20px
+        box-shadow: 0 1px 0 #333
+        overflow: visible
+
+      @include mobile
+        height: 90vh

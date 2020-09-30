@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital@0;1&family=Proza+Libre:ital,wght@0,400;0,700;1,400;1,500&display=swap')
+
+@import 'variables'
+@import 'logo'
+@import 'control'
+@import 'display'
+@import 'info'
+@import 'addForm'
+
+*
+  margin: 0
+  padding: 0
+  box-sizing: border-box
+
+html
+  font-family: $font-regular
+
+h1, h2, h3
+  font-family: $font-title
+
+h1
+  font-size: 2rem
+
+h2
+  font-size: 1.5rem
+  margin-bottom: 10px
+
+  @include tablet
+    margin-top: 20px
+
+  &:last-child
+    margin-bottom: 0
+
+.game-board
+  display: flex
+
+  min-height: 100vh
+  width: 100vw
+
+  padding: 20px
+
+  @include tablet
+    flex-direction: column-reverse

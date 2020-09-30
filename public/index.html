@@ -6,55 +6,149 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Quiz Game | Express & MongoDB</title>
-    <style>
-        .end-screen {
-            visibility: hidden;
-            position: absolute;
-            background-color: #fff;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+        integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
+        crossorigin="anonymous" />
+    <link rel="stylesheet" href="css/main.css">
 </head>
 
 <body>
-    <h1>Quiz Game App - Coders</h1>
-    <h2></h2>
+    <main class="game-board" id="game-board">
+        <section class="control-panel">
+            <header>
+                <div class="header__logo js-logo"><span>OOP</span><span>JS</span><span>games</span></div>
+                <h1 class="control-panel__title">10 pytań</h1>
+            </header>
+            <div class="control-panel__results results">
+                <h2 class="results__title">Wyniki:</h2>
+                <div class="results__display display">
+                    <p>Correct answers:
+                        <span class="results__correct-answers" id="correct-answers"></span></p>
+                    <p class="results__final"></p>
+                    <p class="results__btns">
+                        <button class="btn results__btn disabled" disabled>Restart</button>
+                        <button id="addQ" class="btn results__btn">Dodaj pytanie</button>
+                    </p>
 
-    <div id="game-board">
+                </div>
+            </div>
+            <div class="lifebuoys">
+                <h2 class="lifebuoys__title">Koła ratunkowe:</h2>
+                <div class="lifebuoys__display">
+                    <button class="btn lifebuoy lifebuoys__btn" data-name="Telefon do przyjaciela" id="callToFriend"><i
+                            class="fas fa-phone fa-2x"></i></button>
+                    <button class="btn lifebuoy lifebuoys__btn" data-name="Pytanie do publiczności"
+                        id="questionToTheCrowd"><i class="fas fa-users fa-2x"></i></button>
+                    <button class="btn lifebuoy lifebuoys__btn" data-name="Pół na pół" id="halfOnHalf"><i
+                            class="fas fa-star-half-alt fa-2x"></i></button>
+                </div>
+                <div class="lifebuoys__names">
+                    <span class="name">Telefon do przyjaciela /</span>
+                    <span class="name">Pytnie do publiczności /</span>
+                    <span class="name"> Pół na pół</span>
+                </div>
+            </div>
+            <div class="answers">
+                <h2 class="answers__title">Odpowiedzi:</h2>
+                <div class="answers__list">
+                    <button id="answer1" class="btn answers__btn" data-answer="0">
+                        <span class="answer"></span>
+                        <span class="percent">%</span>
+                    </button>
+                    <button id="answer2" class="btn answers__btn" data-answer="1">
+                        <span class="answer"></span>
+                        <span class="percent"></span>
+                    </button>
+                    <button id="answer3" class="btn answers__btn" data-answer="2">
+                        <span class="answer"></span>
+                        <span class="percent"></span>
+                    </button>
+                    <button id="answer4" class="btn answers__btn" data-answer="3">
+                        <span class="answer"></span>
+                        <span class="percent"></span>
+                    </button>
+                </div>
+            </div>
+        </section>
+        <section class="display-panel">
+            <div class="display-panel__tip" id="tip"></div>
+            <div class="display-panel__question">
+                <div class="display-panel__question-display" id="question"></div>
+                <div class="display-panel__loader hidden">
+                    <span class="display-panel__loader-dot"></span>
+                    <span class="display-panel__loader-dot"></span>
+                    <span class="display-panel__loader-dot"></span>
+                </div>
+            </div>
+            <div class="display-panel__additional">Loading...</div>
+        </section>
 
-        <h2>Correct answers: <span id="correct-answers"></span></h2>
-
-        <div id="tip">Podpowiedź: <span class="tip"></span>
+        <!-- Rules section -->
+        <div class="rules__display">
+            <h1 class="rules__header">Zasady:</h1>
+            <ol class="rules__list">
+                <li class="rules__list-item">Gra polega na udzielaniu odpowiedzi na pytania,</li>
+                <li class="rules__list-item">Gracz, który odpowie na 10 pytań poprawnie - zwycięża</li>
+                <li class="rules__list-item">Do wyboru są cztery odpowiedzi, tylko jedna jest poprawna</li>
+                <li class="rules__list-item">Zła odpowiedź na którekolwiek pytanie oznacza przegraną</li>
+                <li class="rules__list-item">Udzielenie 10 poprawnych odpowiedzi gwarantuje zwycięstwo</li>
+                <li class="rules__list-item">Zwycięzca może dodać własne pytanie do puli</li>
+                <li class="rules__list-item">Do pomocy gracze mają po trzy koła ratunkowe: telefon do przyjaciela,
+                    pytanie do publiczności i pół na pół</li>
+                <li class="rules__list-item">Każde koło ratunkowe można wykorzystać tylko raz</li>
+                <li class="rules__list-item">Po zakończeniu gry należ wykorzystać jeden z przycisków w panelu "wynik"
+                    zamiast odświeżać przeglądarkę</li>
+            </ol>
         </div>
-        <button class="lifebuoys" id="callToFriend">Telefon do Przyjaciela</button>
-        <button class="lifebuoys" id="questionToTheCrowd">Pytanie do Publiczności</button>
-        <button class="lifebuoys" id="halfOnHalf">Pół na pół</button>
-
-
-        <div id="question"></div>
-        <button id="answer1" class="q-btn" data-answer="0"></button>
-        <button id="answer2" class="q-btn" data-answer="1"></button>
-        <button id="answer3" class="q-btn" data-answer="2"></button>
-        <button id="answer4" class="q-btn" data-answer="3"></button>
-        <div class="end-screen" id="winner-screen">
-            <h2 class="end-title">Gratuluję, wygrałeś!</h2>
-            <button class="end-btn" id="win-btn">Dodaj własne pytanie!</button>
+        <div class="technologies__display">
+            <h1 class="technologies__title">Technologie:</h1>
+            <div class="technologies__card">
+                <div class="technologies__logo technologies__logo--js"><i class="fab fa-js-square"></i></div>
+                <div class="technologies__description">
+                    <h3 class="technologies__name">JavaScript</h3>
+                    <p class="technologies__text">Frontentd napisany jest w czystym Javascripcie, w paradygmacie
+                        obiektowym.</p>
+                </div>
+            </div>
+            <div class="technologies__card">
+                <div class="technologies__logo technologies__logo--node"><i class="fab fa-node-js"></i></div>
+                <div class="technologies__description">
+                    <h3 class="technologies__name">Node.js / Express.js</h3>
+                    <p class="technologies__text">Backend został stworzony przy użyciu node.js oraz frameworka
+                        Express.js
+                    </p>
+                </div>
+            </div>
+            <div class="technologies__card">
+                <div class="technologies__logo technologies__logo--mongo"><i class="fas fa-server"></i></div>
+                <div class="technologies__description">
+                    <h3 class="technologies__name">MongoDB</h3>
+                    <p class="technologies__text">Pytania znajdują się w nierelacyjnej, zdalnej bazie danych MongoDB</p>
+                </div>
+            </div>
+            <div class="technologies__card">
+                <div class="technologies__logo technologies__logo--sass"><i class="fab fa-sass"></i></div>
+                <div class="technologies__description">
+                    <h3 class="technologies__name">SASS</h3>
+                    <p class="technologies__text">Stylowanie z użyciem skłasni SASS, nazwy klas zgodnie z metodologią
+                        BEM
+                    </p>
+                </div>
+            </div>
         </div>
-        <div class="end-screen" id="looser-screen">
-            <h2 class="end-title">Niestety przegrałeś!</h2>
-            <button class="end-btn" id="loose-btn">Jeszcze raz?</button>
-        </div>
-    </div>
+        <div class="rules__btn">?</div>
+        <div class="technologies__btn"><i class="fas fa-code"></i></div>
+    </main>
 
-
-    <!-- <script src="script.js"></script> -->
-    <script src="lifebuoys.js"></script>
-    <script src="game.js"></script>
-    <script src="interface.js"></script>
-    <script type="module" src="main.js"></script>
+    <!-- Did not use webpack so all files were imported in an ordered manner -->
+    <script src="js/hint.js"></script>
+    <script src="js/lifebuoys.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/question.js"></script>
+    <script src="js/info.js"></script>
+    <script src="js/interface.js"></script>
+    <script src="js/addForm.js"></script>
+    <script type="module" src="js/main.js"></script>
 </body>
 
 </html>

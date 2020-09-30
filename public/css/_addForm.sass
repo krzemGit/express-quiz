@@ -1,0 +1,202 @@
+// animation specific for this section
+
+@keyframes spin
+  0%
+    transform: rotate(0deg)
+
+  100%
+    transform: rotate(360deg)
+
+// component styling
+.add-form
+  color: #555
+  position: relative
+  width: 700px
+  border: 2px solid #888
+  border-radius: 10px
+  box-shadow: 2px 2px 2px #bbb
+  padding: 80px 40px 40px
+
+  display: flex
+  flex-wrap: wrap
+  justify-content: space-between
+
+  @media (max-width: 1200px)
+    border: none
+    box-shadow: none
+
+  @include tablet
+    margin-top: 60px
+    padding-top: 0
+    position: static
+
+  @include mobile-small
+    width: 300px
+
+  &:focus-within
+    border-color: $color-green
+
+    i
+      color: $color-green
+
+  i
+    position: absolute
+    color: #888
+    font-size: 4rem
+    margin: 0 auto
+    left: 50%
+    top: 0
+    transform: translate(-50%, -50%)
+    background-color: #fff
+
+    @include tablet
+      z-index: 6
+      color: $color-green
+
+  &__question
+    position: relative
+    width: 100%
+    flex-basis: 100%
+
+    &:focus-within
+      color: $color-green
+
+    &.focused
+      label
+        top: 0
+        font-size: .5rem
+
+    label
+      display: block
+      width: auto
+      position: relative
+      z-index: -1
+      top: 17px
+      transition: all .5s
+      text-align: center
+      line-height: 1rem
+
+    input
+      width: 100%
+      border: none
+      border-bottom: 2px solid #aaa
+      z-index: 1
+      background-color: transparent
+      padding-bottom: 5px
+      text-align: center
+
+      &:focus
+        border-color: $color-green
+        outline: none
+
+  &__answer
+    border: 1px solid #aaa
+    border-radius: 10px
+    overflow-x: hidden
+    margin-top: 20px
+
+    height: auto
+    width: 49%
+
+    display: flex
+
+    @include mobile
+      width: 100%
+
+    &:focus-within
+      box-shadow: 0 0 0 3px $color-green-opaque
+
+    &:nth-child(odd)
+      margin-right: 2%
+
+      @include mobile
+        margin-right: 0
+
+    label
+      display: inline
+      background-color: #eee
+      color: #333
+      padding: 6px 10px 5px
+      font-size: .7rem
+      white-space: nowrap
+      border-right: 1px solid #aaa
+      height: 100%
+
+    input
+      border: none
+      padding-left: 10px
+      color: #555
+      outline: none
+      line-height: 28px
+      flex-shrink: 1
+
+  &__correct-answer
+    border: 1px solid #aaa
+    border-radius: 10px
+
+    width: 55%
+    height: 30px
+    margin: 20px auto
+
+    overflow: hidden
+
+    @include mobile
+      width: 100%
+
+    &:focus-within
+      box-shadow: 0 0 0 3px $color-green-opaque
+
+    select
+      border: none
+      width: 100%
+      height: 100%
+      text-align: center
+      background-color: #fff
+      outline: none
+      padding-left: 20px
+
+      @include mobile
+        padding-left: 5px
+
+  &__submit
+    &-wrapper
+      flex-basis: 100%
+      text-align: center
+
+    &-btn
+      padding: 10px 30px
+      border: 2px solid #aaa
+      color: #555
+      background-color: #fff
+      border-radius: 10px
+      box-shadow: 2px 2px 3px #cccccc
+      cursor: pointer
+      outline: none
+      transition: all .5s
+
+      &:hover
+        border-color: $color-green
+        color: $color-green
+        box-shadow: 3px 3px 4px #aaa
+
+  &__loader-icon
+    animation: spin 1s infinite
+
+  &__message
+    margin-top: 20px
+    min-height: 36px
+    flex-basis: 100%
+    text-align: center
+    padding: 5px
+    border-radius: 10px
+    transition: 1s all
+
+    &.green
+      color: $color-green
+      background-color: $color-green-opaque
+      border: 1px solid $color-green
+
+    &.red
+      color: red
+      background-color: $color-red-opaque
+      border: 1px solid red
