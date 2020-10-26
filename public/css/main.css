@@ -25,6 +25,12 @@
   }
 }
 
+@media (max-width: 360px) {
+  .js-logo {
+    display: none;
+  }
+}
+
 .js-logo span:first-child {
   position: absolute;
   top: -10px;
