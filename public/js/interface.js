@@ -40,7 +40,7 @@ class Interface {
                     lifebuoys.resetBuoys();
                     this.clearScreen();
                     game.resetValues();
-                    location.reload()
+                    // location.reload()
                 })
             } else {
                 btn.addEventListener('click', () => {
