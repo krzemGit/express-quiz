@@ -57,7 +57,7 @@ class Game {
         this.questionData = [];
         fetch('/restart', { method: 'GET' })
             .then(res => res.json())
-            .then(res => console.log(res))
+            .then(res => location.reload())
             .catch(err => console.log(err))
     }
 };
