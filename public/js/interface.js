@@ -39,7 +39,7 @@ class Interface {
                 btn.addEventListener('click', () => {
                     lifebuoys.resetBuoys();
                     this.clearScreen();
-                    game.resetValues('restart');
+                    game.resetValues();
                     location.reload()
                 })
             } else {
@@ -131,6 +131,7 @@ class Interface {
 
     // function renders the screen after each answer, kind of similar to react
     render(data) {
+        console.log(data);
         if (data.winner === true) {
             this.playerWin();
         } else if (data.looser === true) {
